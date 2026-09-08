@@ -1,0 +1,443 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Connect - Social Media</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            min-height: 100vh;
+            color: #222;
+        }
+
+        header {
+            background: rgba(255,255,255,0.95);
+            padding: 16px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        header h1 {
+            color: #6c63ff;
+            font-size: 28px;
+        }
+
+        header span {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .container {
+            width: 650px;
+            max-width: 94%;
+            margin: 25px auto;
+        }
+
+        /* PROFILE */
+
+        .profile-card {
+            background: white;
+            border-radius: 18px;
+            padding: 22px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+        }
+
+        .profile-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .big-avatar {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6c63ff, #ff4fc3);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .profile-info h2 {
+            margin-bottom: 5px;
+        }
+
+        .profile-info p {
+            color: #777;
+        }
+
+        .stats {
+            display: flex;
+            gap: 25px;
+            margin-top: 18px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+
+        .stats div {
+            text-align: center;
+        }
+
+        .stats strong {
+            display: block;
+            font-size: 18px;
+        }
+
+        .stats span {
+            color: #777;
+            font-size: 13px;
+        }
+
+        .edit-btn {
+            margin-top: 15px;
+            padding: 9px 18px;
+            border: none;
+            border-radius: 20px;
+            background: #6c63ff;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* CREATE POST */
+
+        .create-box {
+            background: white;
+            padding: 20px;
+            border-radius: 18px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+            margin-bottom: 22px;
+        }
+
+        .create-box h2 {
+            margin-bottom: 15px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 90px;
+            resize: none;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        textarea:focus {
+            border-color: #6c63ff;
+        }
+
+        .post-btn {
+            margin-top: 12px;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #6c63ff, #b84cff);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* POST */
+
+        .post {
+            background: white;
+            border-radius: 18px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6c63ff, #ff4fc3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .username {
+            font-weight: bold;
+        }
+
+        .post-content {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            word-wrap: break-word;
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+            border-top: 1px solid #eee;
+            padding-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .actions button {
+            border: none;
+            background: #f3f3f7;
+            padding: 9px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .actions button:hover {
+            background: #e5e4ff;
+        }
+
+        /* COMMENTS */
+
+        .comment-box {
+            display: none;
+            margin-top: 12px;
+        }
+
+        .comment-box input {
+            width: 75%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        .comment-box button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 20px;
+            background: #6c63ff;
+            color: white;
+            cursor: pointer;
+        }
+
+        .comments {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .comment {
+            background: #f5f5f8;
+            padding: 8px 12px;
+            border-radius: 10px;
+            margin-top: 6px;
+        }
+
+        .empty {
+            text-align: center;
+            color: #777;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+        }
+
+        /* REGISTER */
+
+        .register-box {
+            background: white;
+            padding: 20px;
+            border-radius: 18px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+        }
+
+        .register-box input {
+            width: 100%;
+            padding: 11px;
+            margin: 7px 0;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            outline: none;
+        }
+
+        .register-btn {
+            width: 100%;
+            padding: 11px;
+            margin-top: 7px;
+            border: none;
+            border-radius: 10px;
+            background: #222;
+            color: white;
+            cursor: pointer;
+        }
+
+        @media(max-width:600px) {
+            header {
+                padding: 15px 5%;
+            }
+
+            header span {
+                display: none;
+            }
+
+            .stats {
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>✨ Connect</h1>
+    <span>Share • Connect • Enjoy</span>
+</header>
+
+
+<div class="container">
+
+    <!-- PROFILE -->
+
+    <div class="profile-card">
+
+        <div class="profile-top">
+
+            <div class="big-avatar" id="profileAvatar">
+                S
+            </div>
+
+            <div class="profile-info">
+                <h2 id="profileName">Shruti</h2>
+                <p id="profileBio">
+                    Welcome to my Connect profile 💜
+                </p>
+            </div>
+
+        </div>
+
+        <div class="stats">
+
+            <div>
+                <strong id="postCount">0</strong>
+                <span>Posts</span>
+            </div>
+
+            <div>
+                <strong id="followerCount">0</strong>
+                <span>Followers</span>
+            </div>
+
+            <div>
+                <strong id="followingCount">0</strong>
+                <span>Following</span>
+            </div>
+
+        </div>
+
+        <button class="edit-btn" onclick="editProfile()">
+            ✏️ Edit Profile
+        </button>
+
+    </div>
+
+
+    <!-- REGISTER -->
+
+    <div class="register-box">
+
+        <h2>👤 Create New Profile</h2>
+
+        <input
+            type="text"
+            id="newName"
+            placeholder="Your name"
+        >
+
+        <input
+            type="email"
+            id="newEmail"
+            placeholder="Email"
+        >
+
+        <input
+            type="password"
+            id="newPassword"
+            placeholder="Password"
+        >
+
+        <input
+            type="text"
+            id="newBio"
+            placeholder="Short bio"
+        >
+
+        <button
+            class="register-btn"
+            onclick="registerUser()"
+        >
+            Create Account
+        </button>
+
+    </div>
+
+
+    <!-- CREATE POST -->
+
+    <div class="create-box">
+
+        <h2>What's on your mind? 💭</h2>
+
+        <textarea
+            id="postContent"
+            placeholder="Share something with your friends..."
+        ></textarea>
+
+        <button
+            class="post-btn"
+            onclick="createPost()"
+        >
+            🚀 Publish Post
+        </button>
+
+    </div>
+
+
+    <!-- POSTS -->
+
+    <div id="posts"></div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
+```
