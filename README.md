@@ -108,8 +108,3 @@ The objective of this project is to develop a simple social media platform where
 
 Developed using **HTML, CSS, JavaScript, Node.js, Express.js and SQLite**.
 
-## 👩‍💻 Developed By
-
-**Shruti Prabhakaran**
-
-B.Tech Information Technology
